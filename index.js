@@ -11,14 +11,12 @@ const PORT = process.env.PORT || 4200;
 const USER = process.env.USER;
 const PASSWORD = process.env.PASSWORD;
 
-console.log(USER, PASSWORD);
-
 app.use(cors({ origin: true }));
-// app.use(basicAuth({
-//   users: {
-//     [USER]: PASSWORD,
-//   }
-// }));
+app.use(basicAuth({
+  users: {
+    [USER]: PASSWORD,
+  }
+}));
 
 const handleError = (e) => {
   if (e.response) {
@@ -94,10 +92,6 @@ app.get('/', async (req, res) => {
     console.error(e);
     res.json(e);
   }
-});
-
-app.get('/foo', (req, res) => {
-  res.json({ foo: 'haha' });
 });
 
 app.listen(PORT, () => {
